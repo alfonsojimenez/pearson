@@ -2,7 +2,7 @@ $:.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'pearson'
-  s.version     = '1.0.0'
+  s.version     = '1.1.0'
   s.authors     = ['Alfonso Jiménez']
   s.email       = ['yo@alfonsojimenez.com']
   s.homepage    = 'https://github.com/alfonsojimenez/pearson'

@@ -54,31 +54,31 @@ module Pearson
     # @param [Hash] Options (limit)
     #
     # @return [Array] Top matches [item, score]
-    def recommendations(scores, person, opts={})
+    def recommendations(scores, entity, opts={})
       totals = {}
-      similaritySums = {}
+      similarity_sums = {}
 
       totals.default = 0
-      similaritySums.default = 0
+      similarity_sums.default = 0
 
-      fail PersonNotFound unless scores[person]
+      fail EntityNotFound unless scores[entity]
 
-      scores.each do |other_person|
-        next if other_person.first == person
+      scores.each do |other_entity|
+        next if other_entity.first == entity
 
-        similarity = coefficient(scores, person, other_person.first)
+        similarity = coefficient(scores, entity, other_entity.first)
 
         next if similarity <= 0
 
-        scores[other_person.first].each do |item, score|
-          if !scores[person].keys.include?(item) || scores[person][item] == 0
+        scores[other_entity.first].each do |item, score|
+          if !scores[entity].keys.include?(item) || scores[entity][item] == 0
             totals[item] += score * similarity
-            similaritySums[item] += similarity
+            similarity_sums[item] += similarity
           end
         end
       end
 
-      sort_desc(totals, opts) {|h, k, v| h.merge(k => v/similaritySums[k]) }
+      sort_desc(totals, opts) {|h, k, v| h.merge(k => v/similarity_sums[k]) }
     end
 
     private
@@ -103,6 +103,6 @@ module Pearson
     end
   end
 
-  class PersonNotFound < StandardError; end
+  class EntityNotFound < StandardError; end
 end
 

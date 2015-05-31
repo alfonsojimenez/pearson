@@ -18,13 +18,13 @@ module Pearson
       sum1 = sum2 = sum1_sq = sum2_sq = psum = 0
 
       shared_items.each_key do |item|
-        sum1 += scores[entity1][item]
-        sum2 += scores[entity2][item]
+        sum1 += scores[entity1][item].to_f
+        sum2 += scores[entity2][item].to_f
 
-        sum1_sq += scores[entity1][item]**2
-        sum2_sq += scores[entity2][item]**2
+        sum1_sq += scores[entity1][item].to_f**2
+        sum2_sq += scores[entity2][item].to_f**2
 
-        psum += scores[entity1][item]*scores[entity2][item]
+        psum += scores[entity1][item].to_f*scores[entity2][item].to_f
       end
 
       num = psum - (sum1*sum2/n)
